@@ -14,22 +14,40 @@ export class App extends Component {
     per_page: 4,
   };
 
-  async componentDidMount() {
-    // if (prevState.searchWord !== this.state.searchWord) {
+  // async componentDidMount() {
+  //   // if (prevState.searchWord !== this.state.searchWord) {
+  //   const { searchWord: q, per_page } = this.state;
+  //   console.log(q, per_page);
+  //   try {
+  //     const res = await fetchImages({ q, per_page });
+  //     console.log('res:');
+  //     console.dir(res);
+  //     this.setState({
+  //       hits: res.hits,
+  //       total: res.total,
+  //       totalHits: res.totalHits,
+  //     });
+  //   } catch {
+  //     console.log('catch');
+  //   }
+  // }
 
-    const { searchWord: q, per_page } = this.state;
-    console.log(q, per_page);
-    try {
-      const res = await fetchImages({ q, per_page });
-      console.log('res:');
-      console.dir(res);
-      this.setState({
-        hits: res.hits,
-        total: res.total,
-        totalHits: res.totalHits,
-      });
-    } catch {
-      console.log('catch');
+  async componentDidUpdate(prevProps, prevState) {
+    if (prevState.searchWord !== this.state.searchWord) {
+      const { searchWord: q, per_page } = this.state;
+      console.log(q, per_page);
+      try {
+        const res = await fetchImages({ q, per_page });
+        console.log('res:');
+        console.dir(res);
+        this.setState({
+          hits: res.hits,
+          total: res.total,
+          totalHits: res.totalHits,
+        });
+      } catch {
+        console.log('catch');
+      }
     }
   }
 
