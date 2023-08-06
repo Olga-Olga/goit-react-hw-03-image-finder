@@ -4,6 +4,7 @@ import React, { Component } from 'react';
 import { fetchImages } from './Api';
 import { ImageGalleryItem } from './ImageGalleryItem';
 import { Button } from './Button';
+import { Circles } from 'react-loader-spinner';
 // axios.defaults.headers.common['Authorization'] = API_KEY;
 
 export class App extends Component {
@@ -14,7 +15,7 @@ export class App extends Component {
     totalHits: '',
     per_page: 20,
     page: 1,
-    isLoading: true,
+    isLoading: false,
     showButton: false,
   };
 
@@ -29,6 +30,7 @@ export class App extends Component {
     ) {
       console.log(this.state.searchWord.length);
       const { searchWord: q, per_page, page } = this.state;
+      this.setState({ isLoading: true });
       try {
         console.log(this.state.hits.length);
         this.setState({ showButton: false });
@@ -47,6 +49,7 @@ export class App extends Component {
       } catch {
         console.log('catch');
       } finally {
+        this.setState({ isLoading: false });
       }
     }
   }
@@ -69,20 +72,25 @@ export class App extends Component {
   };
 
   render() {
+    const { isLoading, hits, totalHits, total } = this.state;
     return (
       <div>
         <Searchbar onSubmit={this.handleSearchInput} />
-        <ImageGallery
-          total={this.state.total}
-          hits={this.state.hits}
-          totalHits={this.state.totalHits}
-        />
-        {this.state.showButton && (
-          <Button
-            buttonStatus={this.isLoading}
-            onPageUpload={this.onPageUpload}
+        {isLoading && (
+          <Circles
+            height="80"
+            width="80"
+            color="#05da1e"
+            ariaLabel="circles-loading"
+            wrapperStyle={{}}
+            wrapperClass=""
+            visible={true}
           />
         )}
+
+        <ImageGallery total={total} hits={hits} totalHits={totalHits} />
+
+        {this.state.showButton && <Button onPageUpload={this.onPageUpload} />}
       </div>
     );
   }
