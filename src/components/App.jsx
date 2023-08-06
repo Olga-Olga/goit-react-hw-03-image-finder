@@ -2,7 +2,8 @@ import { ImageGallery } from './ImageGallery';
 import { Searchbar } from './Searchbar';
 import React, { Component } from 'react';
 import { fetchImages } from './Api';
-
+import { ImageGalleryItem } from './ImageGalleryItem';
+import { Button } from './Button';
 // axios.defaults.headers.common['Authorization'] = API_KEY;
 
 export class App extends Component {
@@ -59,12 +60,15 @@ export class App extends Component {
   render() {
     return (
       <div>
-        <Searchbar search={this.handleSearchInput} />
-        <ImageGallery
+        <Searchbar onSubmit={this.handleSearchInput} />
+        {/* <ImageGallery> */}
+        <ImageGalleryItem
           total={this.state.total}
           hits={this.state.hits}
           totalHits={this.state.totalHits}
         />
+        {/* </ImageGallery> */}
+        {/* <Button /> */}
       </div>
     );
   }

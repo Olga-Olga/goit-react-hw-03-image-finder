@@ -1,14 +1,10 @@
 import React from 'react';
+import ImageGalleryItem from './ImageGalleryItem';
 
-export const ImageGallery = ({ total, hits, totalHits }) => {
-  console.log(hits, total, totalHits);
+export const ImageGallery = () => {
   return (
     <div>
-      <li className="gallery-item">
-        {hits.map(pic => (
-          <img key={pic.id} src={pic.webformatURL} alt="123" />
-        ))}
-      </li>
+      <ul class="gallery"></ul>
     </div>
   );
 };

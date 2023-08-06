@@ -1,9 +1,9 @@
 import React from 'react';
 
-export const Searchbar = ({ search }) => {
+export const Searchbar = ({ onSubmit }) => {
   const handleSubmitInput = event => {
     event.preventDefault();
-    search(event.target.input.value);
+    onSubmit(event.target.input.value);
   };
 
   return (

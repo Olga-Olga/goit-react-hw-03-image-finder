@@ -2,6 +2,14 @@ import React, { Component } from 'react';
 
 export default class Modal extends Component {
   render() {
-    return <div>Modal</div>;
+    return (
+      <div>
+        <div class="overlay">
+          <div class="modal">
+            <img src="" alt="" />
+          </div>
+        </div>
+      </div>
+    );
   }
 }
