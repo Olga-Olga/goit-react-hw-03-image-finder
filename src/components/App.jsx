@@ -13,38 +13,24 @@ export class App extends Component {
     total: '',
     totalHits: '',
     per_page: 4,
+    page: 1,
+    isLoading: false,
   };
 
-  // async componentDidMount() {
-  //   // if (prevState.searchWord !== this.state.searchWord) {
-  //   const { searchWord: q, per_page } = this.state;
-  //   console.log(q, per_page);
-  //   try {
-  //     const res = await fetchImages({ q, per_page });
-  //     console.log('res:');
-  //     console.dir(res);
-  //     this.setState({
-  //       hits: res.hits,
-  //       total: res.total,
-  //       totalHits: res.totalHits,
-  //     });
-  //   } catch {
-  //     console.log('catch');
-  //   }
-  // }
-
   async componentDidUpdate(prevProps, prevState) {
-    if (prevState.searchWord !== this.state.searchWord) {
-      const { searchWord: q, per_page } = this.state;
-      console.log(q, per_page);
+    if (
+      prevState.searchWord !== this.state.searchWord ||
+      this.state.page !== prevState.page
+    ) {
+      const { searchWord: q, per_page, page } = this.state;
       try {
-        const res = await fetchImages({ q, per_page });
-        console.log('res:');
-        console.dir(res);
+        const res = await fetchImages({ q, per_page, page });
         this.setState({
-          hits: res.hits,
+          hits:
+            this.state.page === 1 ? res.hits : [...prevState.hits, ...res.hits],
           total: res.total,
           totalHits: res.totalHits,
+          page,
         });
       } catch {
         console.log('catch');
@@ -53,22 +39,34 @@ export class App extends Component {
   }
 
   handleSearchInput = word => {
-    this.setState({ searchWord: word });
-    console.log(this.state);
+    if (word !== this.state.searchWord) {
+      this.setState({ searchWord: word, page: 1 });
+    }
+  };
+
+  onPageUpload = async () => {
+    this.setState(prev => ({
+      page: prev.page + 1,
+    }));
+    const { searchWord: q, per_page, page } = this.state;
   };
 
   render() {
     return (
       <div>
         <Searchbar onSubmit={this.handleSearchInput} />
-        {/* <ImageGallery> */}
-        <ImageGalleryItem
+        <ImageGallery
           total={this.state.total}
           hits={this.state.hits}
           totalHits={this.state.totalHits}
         />
-        {/* </ImageGallery> */}
-        {/* <Button /> */}
+
+        {/* <ImageGalleryItem
+          total={this.state.total}
+          hits={this.state.hits}
+          totalHits={this.state.totalHits}
+        /> */}
+        <Button onPageUpload={this.onPageUpload} />
       </div>
     );
   }

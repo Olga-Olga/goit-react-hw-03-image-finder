@@ -3,6 +3,7 @@ import React from 'react';
 export const Searchbar = ({ onSubmit }) => {
   const handleSubmitInput = event => {
     event.preventDefault();
+
     onSubmit(event.target.input.value);
   };
 

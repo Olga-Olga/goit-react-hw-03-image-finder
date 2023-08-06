@@ -19,6 +19,6 @@ export const fetchImages = async params => {
       ...params,
     },
   });
-  console.log('data:', data);
+  // console.log('data:', data);
   return data;
 };
