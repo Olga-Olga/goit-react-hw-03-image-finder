@@ -14,29 +14,27 @@ export class App extends Component {
     hits: [],
     total: '',
     totalHits: '',
-    per_page: 20,
+    per_page: 12,
     page: 1,
     isLoading: false,
     showButton: false,
-    showModal: false,
+    // showModal: false,
+    largeImageURL: '',
   };
 
-  componentDidMount() {
-    console.log(this.state.hits.length);
-  }
+  componentDidMount() {}
 
   async componentDidUpdate(prevProps, prevState) {
     if (
       prevState.searchWord !== this.state.searchWord ||
       this.state.page !== prevState.page
     ) {
-      console.log(this.state.searchWord.length);
       const { searchWord: q, per_page, page } = this.state;
       this.setState({ isLoading: true });
       try {
-        console.log(this.state.hits.length);
         this.setState({ showButton: false });
         const res = await fetchImages({ q, per_page, page });
+        console.log(res.hits);
         this.setState({
           hits:
             this.state.page === 1 ? res.hits : [...prevState.hits, ...res.hits],
@@ -73,25 +71,23 @@ export class App extends Component {
     const { searchWord: q, per_page, page } = this.state;
   };
 
-  toggleModal = () => {
-    this.setState(({ showModal }) => ({ showModal: !showModal }));
+  toggleModal = largeImageURL => {
+    // this.setState(({ showModal }) => ({ showModal: !showModal }));
+    this.setState({ largeImageURL: largeImageURL ? largeImageURL : '' });
+    // this.setState({ largeImageURL });
   };
 
   render() {
-    const { isLoading, hits, totalHits, total, showModal } = this.state;
+    const { isLoading, hits, totalHits, total, largeImageURL } = this.state;
     return (
       <div>
         <Searchbar onSubmit={this.handleSearchInput} />
-        <button type="button" onClick={this.toggleModal}>
+        {/* <button type="button" onClick={this.toggleModal}>
           Open Window
-        </button>
-        {showModal && (
+        </button> */}
+        {largeImageURL && (
           <Modal onClose={this.toggleModal}>
-            <img src="hits.bigImgUrl" alt="la-la-la" />
-            <div>HELLO</div>
-            <button type="button" onClick={this.toggleModal}>
-              Close
-            </button>
+            <img src={this.state.largeImageURL} alt="la-la-la" />
           </Modal>
         )}
 
@@ -106,7 +102,12 @@ export class App extends Component {
             visible={true}
           />
         )}
-        <ImageGallery total={total} hits={hits} totalHits={totalHits} />
+        <ImageGallery
+          onModal={this.toggleModal}
+          total={total}
+          hits={hits}
+          totalHits={totalHits}
+        />
 
         {this.state.showButton && <Button onPageUpload={this.onPageUpload} />}
       </div>

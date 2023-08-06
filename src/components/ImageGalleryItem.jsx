@@ -1,9 +1,9 @@
 import React from 'react';
 
-export const ImageGalleryItem = ({ webformatURL }) => {
+export const ImageGalleryItem = ({ largeImageURL, webformatURL, onModal }) => {
   return (
     <li className="gallery-item">
-      <img src={webformatURL} alt="123" />
+      <img onClick={() => onModal(largeImageURL)} src={webformatURL} alt="" />
     </li>
   );
 };
