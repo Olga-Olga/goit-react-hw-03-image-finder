@@ -5,6 +5,7 @@ import { fetchImages } from './Api';
 import { ImageGalleryItem } from './ImageGalleryItem';
 import { Button } from './Button';
 import { Circles } from 'react-loader-spinner';
+import { Modal } from './Modal';
 // axios.defaults.headers.common['Authorization'] = API_KEY;
 
 export class App extends Component {
@@ -17,6 +18,7 @@ export class App extends Component {
     page: 1,
     isLoading: false,
     showButton: false,
+    showModal: false,
   };
 
   componentDidMount() {
@@ -71,11 +73,28 @@ export class App extends Component {
     const { searchWord: q, per_page, page } = this.state;
   };
 
+  toggleModal = () => {
+    this.setState(({ showModal }) => ({ showModal: !showModal }));
+  };
+
   render() {
-    const { isLoading, hits, totalHits, total } = this.state;
+    const { isLoading, hits, totalHits, total, showModal } = this.state;
     return (
       <div>
         <Searchbar onSubmit={this.handleSearchInput} />
+        <button type="button" onClick={this.toggleModal}>
+          Open Window
+        </button>
+        {showModal && (
+          <Modal onClose={this.toggleModal}>
+            <img src="hits.bigImgUrl" alt="la-la-la" />
+            <div>HELLO</div>
+            <button type="button" onClick={this.toggleModal}>
+              Close
+            </button>
+          </Modal>
+        )}
+
         {isLoading && (
           <Circles
             height="80"
@@ -87,7 +106,6 @@ export class App extends Component {
             visible={true}
           />
         )}
-
         <ImageGallery total={total} hits={hits} totalHits={totalHits} />
 
         {this.state.showButton && <Button onPageUpload={this.onPageUpload} />}
