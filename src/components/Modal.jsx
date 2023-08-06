@@ -8,15 +8,15 @@ export class Modal extends Component {
     window.addEventListener('keydown', this.handleEscape);
   }
 
+  componentWillUnmount() {
+    window.removeEventListener('keydown', this.handleEscape);
+  }
+
   handleEscape = e => {
     if (e.code === 'Escape') {
       this.props.onClose();
     }
   };
-
-  componentWillUnmount() {
-    window.removeEventListener('keydown', this.handleEscape);
-  }
 
   handleBackDropClick = e => {
     if (e.target === e.currentTarget) {
