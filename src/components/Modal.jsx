@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { createPortal } from 'react-dom';
-const modalRoot = document.querySelector('#modal-root');
+import PropTypes from 'prop-types';
 
+const modalRoot = document.querySelector('#modal-root');
 export class Modal extends Component {
   componentDidMount() {
     window.addEventListener('keydown', this.handleEscape);
@@ -34,3 +35,7 @@ export class Modal extends Component {
     );
   }
 }
+
+Modal.propTypes = {
+  onClose: PropTypes.func.isRequired,
+};

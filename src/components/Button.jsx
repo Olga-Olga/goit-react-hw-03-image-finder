@@ -1,11 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-export const Button = ({ onPageUpload, buttonStatus }) => {
-  // {
-  //   buttonStatus === true ? 'Load More' : 'Hide';
-  // }
-
+export const Button = ({ onPageUpload }) => {
   return (
     <div className="searchbar">
       <button className="searchForm-button button" onClick={onPageUpload}>

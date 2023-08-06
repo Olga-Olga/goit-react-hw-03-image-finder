@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 export const Searchbar = ({ onSubmit }) => {
   const handleSubmitInput = event => {
@@ -14,7 +15,6 @@ export const Searchbar = ({ onSubmit }) => {
           <button type="submit searchForm-button-label" className="button">
             <span className="button-label">Search</span>
           </button>
-
           <input
             name="input"
             className="input"

@@ -1,7 +1,8 @@
 import React from 'react';
 import { ImageGalleryItem } from './ImageGalleryItem';
+import PropTypes from 'prop-types';
 
-export const ImageGallery = ({ total, hits, totalHits, onModal }) => {
+export const ImageGallery = ({ hits, onModal }) => {
   return (
     <div>
       <ul className="imageGallery">
@@ -16,4 +17,9 @@ export const ImageGallery = ({ total, hits, totalHits, onModal }) => {
       </ul>
     </div>
   );
+};
+
+ImageGallery.propTypes = {
+  hits: PropTypes.array.isRequired,
+  onModal: PropTypes.func.isRequired,
 };
