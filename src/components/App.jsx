@@ -68,7 +68,7 @@ export class App extends Component {
     this.setState(prev => ({
       page: prev.page + 1,
     }));
-    const { searchWord: q, per_page, page } = this.state;
+    // const { searchWord: q, per_page, page } = this.state;
   };
 
   toggleModal = largeImageURL => {
