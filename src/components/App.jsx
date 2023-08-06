@@ -60,12 +60,6 @@ export class App extends Component {
           hits={this.state.hits}
           totalHits={this.state.totalHits}
         />
-
-        {/* <ImageGalleryItem
-          total={this.state.total}
-          hits={this.state.hits}
-          totalHits={this.state.totalHits}
-        /> */}
         <Button onPageUpload={this.onPageUpload} />
       </div>
     );
