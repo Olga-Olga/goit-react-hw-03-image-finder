@@ -80,27 +80,33 @@ export class App extends Component {
   render() {
     const { isLoading, hits, totalHits, total, largeImageURL } = this.state;
     return (
-      <div>
+      <div className="app">
         <Searchbar onSubmit={this.handleSearchInput} />
         {/* <button type="button" onClick={this.toggleModal}>
           Open Window
         </button> */}
         {largeImageURL && (
           <Modal onClose={this.toggleModal}>
-            <img src={this.state.largeImageURL} alt="la-la-la" />
+            <img
+              className="modal"
+              src={this.state.largeImageURL}
+              alt="la-la-la"
+            />
           </Modal>
         )}
 
         {isLoading && (
-          <Circles
-            height="80"
-            width="80"
-            color="#05da1e"
-            ariaLabel="circles-loading"
-            wrapperStyle={{}}
-            wrapperClass=""
-            visible={true}
-          />
+          <div className="loader">
+            <Circles
+              height="80"
+              width="80"
+              color="#05da1e"
+              ariaLabel="circles-loading"
+              wrapperStyle={{}}
+              wrapperClass=""
+              visible={true}
+            />
+          </div>
         )}
         <ImageGallery
           onModal={this.toggleModal}

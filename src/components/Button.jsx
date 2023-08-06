@@ -6,7 +6,13 @@ export const Button = ({ onPageUpload, buttonStatus }) => {
   //   buttonStatus === true ? 'Load More' : 'Hide';
   // }
 
-  return <button onClick={onPageUpload}>Load more</button>;
+  return (
+    <div className="searchbar">
+      <button className="searchForm-button button" onClick={onPageUpload}>
+        Load more
+      </button>
+    </div>
+  );
 };
 
 Button.propTypes = {

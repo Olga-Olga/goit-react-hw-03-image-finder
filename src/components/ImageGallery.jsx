@@ -4,7 +4,7 @@ import { ImageGalleryItem } from './ImageGalleryItem';
 export const ImageGallery = ({ total, hits, totalHits, onModal }) => {
   return (
     <div>
-      <ul className="gallery">
+      <ul className="imageGallery">
         {hits.map(pic => (
           <ImageGalleryItem
             onModal={onModal}
