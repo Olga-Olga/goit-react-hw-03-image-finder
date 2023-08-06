@@ -2,7 +2,6 @@ import { ImageGallery } from './ImageGallery';
 import { Searchbar } from './Searchbar';
 import React, { Component } from 'react';
 import { fetchImages } from './Api';
-import { ImageGalleryItem } from './ImageGalleryItem';
 import { Button } from './Button';
 import { Circles } from 'react-loader-spinner';
 import { Modal } from './Modal';
