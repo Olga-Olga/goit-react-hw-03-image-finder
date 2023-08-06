@@ -12,18 +12,26 @@ export class App extends Component {
     hits: [],
     total: '',
     totalHits: '',
-    per_page: 4,
+    per_page: 20,
     page: 1,
-    isLoading: false,
+    isLoading: true,
+    showButton: false,
   };
+
+  componentDidMount() {
+    console.log(this.state.hits.length);
+  }
 
   async componentDidUpdate(prevProps, prevState) {
     if (
       prevState.searchWord !== this.state.searchWord ||
       this.state.page !== prevState.page
     ) {
+      console.log(this.state.searchWord.length);
       const { searchWord: q, per_page, page } = this.state;
       try {
+        console.log(this.state.hits.length);
+        this.setState({ showButton: false });
         const res = await fetchImages({ q, per_page, page });
         this.setState({
           hits:
@@ -31,14 +39,23 @@ export class App extends Component {
           total: res.total,
           totalHits: res.totalHits,
           page,
+          showButton:
+            page >= res.totalHits / per_page || res.total === 0 ? false : true,
         });
+        console.log(res.total);
+        console.log(this.state.per_page);
       } catch {
         console.log('catch');
+      } finally {
       }
     }
   }
 
   handleSearchInput = word => {
+    if (!word) {
+      alert('Enter something!');
+      return;
+    }
     if (word !== this.state.searchWord) {
       this.setState({ searchWord: word, page: 1 });
     }
@@ -60,7 +77,12 @@ export class App extends Component {
           hits={this.state.hits}
           totalHits={this.state.totalHits}
         />
-        <Button onPageUpload={this.onPageUpload} />
+        {this.state.showButton && (
+          <Button
+            buttonStatus={this.isLoading}
+            onPageUpload={this.onPageUpload}
+          />
+        )}
       </div>
     );
   }
